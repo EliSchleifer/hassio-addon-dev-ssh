@@ -28,3 +28,9 @@ COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
 CMD [ "/run.sh" ]
+
+LABEL \
+    org.opencontainers.image.title="Dev SSH (Debian)" \
+    org.opencontainers.image.description="glibc SSH target for Cursor / VS Code Remote-SSH" \
+    org.opencontainers.image.source="https://github.com/elischleifer/hassio-addon-dev-ssh" \
+    org.opencontainers.image.licenses="MIT"

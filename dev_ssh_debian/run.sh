@@ -89,6 +89,17 @@ else
     cp /etc/ssh/ssh_host_* "${HOSTKEY_DIR}/"
 fi
 
+# --- log the host key fingerprints so users can verify them against the
+# prompt their SSH client shows (e.g. after a fresh install, when the client
+# warns the host key changed). Compare the SHA256 below with your client's. ---
+echo "[dev-ssh] ----------------------------------------------------------------"
+echo "[dev-ssh] SSH host key fingerprints (verify these match your client):"
+for keyfile in /etc/ssh/ssh_host_*_key.pub; do
+    [ -e "${keyfile}" ] || continue
+    echo "[dev-ssh]   $(ssh-keygen -lf "${keyfile}")"
+done
+echo "[dev-ssh] ----------------------------------------------------------------"
+
 # --- build sshd_config from the options ---
 # set (or add) a keyword in sshd_config
 set_sshd() {

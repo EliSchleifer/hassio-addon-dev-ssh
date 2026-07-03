@@ -1,5 +1,5 @@
 name: Dev SSH (Debian)
-version: "2.0.0"
+version: "2.1.0"
 slug: dev_ssh_debian
 description: >-
   glibc-based SSH server for Cursor / VS Code Remote-SSH, with the Home

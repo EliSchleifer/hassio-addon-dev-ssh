@@ -172,6 +172,14 @@ init_commands:
   you set `ssh.password`.
 - Host keys are stored in the add-on's persistent `/data`, so you won't get
   "host key changed" warnings after a restart or update.
+- **Verifying the host key.** On every start the add-on logs its SSH host key
+  fingerprints — look for the `SSH host key fingerprints` block in the **Log**
+  tab. If your SSH client ever warns that the host key changed (expected after a
+  fresh install or after `/data` is wiped, since new keys are generated),
+  compare the `SHA256:...` your client shows against the one in the log. If they
+  match, it's genuinely this add-on and you can safely accept the new key
+  (e.g. `ssh-keygen -R <host>` on your machine, then reconnect). If they don't
+  match, do **not** accept it.
 - This add-on grants SSH access to your Home Assistant config and add-ons.
   Only expose port 22222 on your LAN; do **not** port-forward it to the
   internet. Use a VPN (e.g. WireGuard) for remote access.

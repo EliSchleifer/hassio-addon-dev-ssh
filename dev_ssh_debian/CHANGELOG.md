@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0
+
+- Log the SSH host key fingerprints on every start so you can verify them
+  against the prompt your client shows (helpful when a client warns the host
+  key changed after a fresh install).
+- Removed the deprecated `build.yaml`; the Debian base and image labels are now
+  set directly in the `Dockerfile` (Supervisor rejected `build.yaml`'s
+  `build_from` and fell back to the Alpine base, which the hardcoded `FROM`
+  already worked around).
+
 ## 2.0.0
 
 - Added configuration options inspired by the Advanced SSH & Web Terminal
