@@ -1,0 +1,8 @@
+configuration:
+  authorized_keys:
+    name: Authorized SSH keys
+    description: >-
+      List of SSH public keys allowed to log in as root. Password login is
+      disabled; key authentication only.
+network:
+  22222/tcp: SSH port for Cursor / VS Code Remote-SSH

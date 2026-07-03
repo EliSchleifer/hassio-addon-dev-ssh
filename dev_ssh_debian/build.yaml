@@ -1,0 +1,11 @@
+build_from:
+  amd64: debian:bookworm-slim
+  aarch64: debian:bookworm-slim
+  armv7: debian:bookworm-slim
+  i386: debian:bookworm-slim
+labels:
+  org.opencontainers.image.title: "Dev SSH (Debian)"
+  org.opencontainers.image.description: "glibc SSH target for Cursor / VS Code Remote-SSH"
+  org.opencontainers.image.source: "https://github.com/elischleifer/hassio-addon-dev-ssh"
+  org.opencontainers.image.licenses: "MIT"
+args: {}

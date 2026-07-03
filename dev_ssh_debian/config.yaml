@@ -1,0 +1,41 @@
+name: Dev SSH (Debian)
+version: "1.0.0"
+slug: dev_ssh_debian
+description: >-
+  glibc-based SSH server for Cursor / VS Code Remote-SSH, with the Home
+  Assistant config directory bind-mounted in locally (fast, no network share).
+url: "https://github.com/elischleifer/hassio-addon-dev-ssh/tree/main/dev_ssh_debian"
+arch:
+  - amd64
+  - aarch64
+  - armv7
+  - i386
+startup: services
+boot: auto
+init: false
+host_network: false
+ports:
+  22222/tcp: 22222
+ports_description:
+  22222/tcp: SSH for Cursor / VS Code Remote-SSH
+map:
+  - type: homeassistant_config
+    read_only: false
+  - type: addon_config
+    read_only: false
+  - type: share
+    read_only: false
+  - type: addons
+    read_only: false
+options:
+  authorized_keys: []
+schema:
+  authorized_keys:
+    - str
+# To serve prebuilt images from CI instead of building locally on each box,
+# publish images via the included GitHub Actions workflow and then add:
+#
+# image: "ghcr.io/elischleifer/{arch}-addon-dev-ssh-debian"
+#
+# Leaving `image` unset (the default) makes Supervisor build the add-on
+# locally on first install, which works everywhere with no CI required.
