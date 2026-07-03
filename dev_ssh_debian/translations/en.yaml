@@ -1,8 +1,18 @@
 configuration:
-  authorized_keys:
-    name: Authorized SSH keys
+  ssh:
+    name: SSH
     description: >-
-      List of SSH public keys allowed to log in as root. Password login is
-      disabled; key authentication only.
+      SSH server settings: login user, password, authorized keys, and
+      forwarding options.
+  packages:
+    name: Extra packages
+    description: >-
+      Additional Debian (apt) packages to install when the add-on starts,
+      e.g. python3, build-essential, nodejs.
+  init_commands:
+    name: Init commands
+    description: >-
+      Shell commands run once each time the add-on starts, before the SSH
+      server launches.
 network:
   22222/tcp: SSH port for Cursor / VS Code Remote-SSH

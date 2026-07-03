@@ -33,8 +33,9 @@ at local-disk speed and file-watching (inotify) works.
 2. Open the **Configuration** tab and add your SSH public key(s):
 
    ```yaml
-   authorized_keys:
-     - ssh-ed25519 AAAA... you@host
+   ssh:
+     authorized_keys:
+       - ssh-ed25519 AAAA... you@host
    ```
 
 3. **Start** the add-on and check the **Log** tab for
@@ -64,27 +65,119 @@ SSH add-on (port 22) if you keep both installed.
 
 ## Options
 
-### `authorized_keys` (required)
-
-A list of SSH public keys allowed to log in as `root`. Password login is
-disabled; key auth only.
+All options are optional except that you need **either** an authorized key
+**or** a password to be able to log in. A full example:
 
 ```yaml
-authorized_keys:
-  - ssh-ed25519 AAAA... laptop
-  - ssh-ed25519 AAAA... desktop
+ssh:
+  username: root
+  password: ""
+  authorized_keys:
+    - ssh-ed25519 AAAA... laptop
+    - ssh-ed25519 AAAA... desktop
+  sftp: false
+  compatibility_mode: false
+  allow_agent_forwarding: false
+  allow_remote_port_forwarding: false
+  allow_tcp_forwarding: false
+packages:
+  - python3
+  - build-essential
+init_commands:
+  - echo "hello from init"
+```
+
+> **Upgrading from 1.x:** `authorized_keys` moved under the new `ssh` object.
+> Change your old top-level `authorized_keys:` list to `ssh:` → `authorized_keys:`
+> as shown above.
+
+### `ssh.username`
+
+The user you log in as. Defaults to `root`, which is what Cursor / VS Code
+Remote-SSH expects and what has full access to the mounted paths. If you set a
+different name, the add-on creates that account (with passwordless `sudo`) on
+start.
+
+### `ssh.password`
+
+Optional password for `ssh.username`. Leave empty (the default) for key-only
+login, which is strongly recommended. Setting a password enables password
+authentication and, for `root`, `PermitRootLogin yes`.
+
+### `ssh.authorized_keys`
+
+A list of SSH public keys allowed to log in as `ssh.username`.
+
+```yaml
+ssh:
+  authorized_keys:
+    - ssh-ed25519 AAAA... laptop
+    - ssh-ed25519 AAAA... desktop
+```
+
+### `ssh.sftp`
+
+Enable the SFTP subsystem (`false` by default). Turn this on if you want to use
+SFTP-based file transfer or tools that rely on it.
+
+### `ssh.compatibility_mode`
+
+Re-enable legacy key-exchange, cipher, MAC, and host-key algorithms for older
+SSH clients (`false` by default). Only enable this if a client cannot connect
+otherwise — it weakens security.
+
+### `ssh.allow_agent_forwarding`
+
+Allow SSH agent forwarding (`AllowAgentForwarding`, `false` by default).
+
+### `ssh.allow_tcp_forwarding`
+
+Allow TCP port forwarding — local (`-L`) and remote (`-R`) tunnels
+(`AllowTcpForwarding`, `false` by default).
+
+### `ssh.allow_remote_port_forwarding`
+
+Allow forwarded remote ports to bind to non-localhost addresses
+(`GatewayPorts`, `false` by default). Requires `allow_tcp_forwarding` to be
+useful.
+
+### `packages`
+
+A list of extra Debian (apt) packages installed each time the add-on starts.
+Handy for adding language runtimes or build tools without editing the
+`Dockerfile`.
+
+```yaml
+packages:
+  - python3
+  - python3-pip
+  - build-essential
+```
+
+### `init_commands`
+
+Shell commands run once on each start, **before** the SSH server launches. Use
+these for one-off setup such as installing global npm packages or configuring
+git.
+
+```yaml
+init_commands:
+  - git config --global user.email you@example.com
+  - npm install -g pnpm
 ```
 
 ## Notes & caveats
 
-- Root login is **key-only**; password authentication is disabled.
+- Login is **key-only** by default; password authentication turns on only when
+  you set `ssh.password`.
 - Host keys are stored in the add-on's persistent `/data`, so you won't get
   "host key changed" warnings after a restart or update.
-- This add-on grants root SSH access to your Home Assistant config and add-ons.
+- This add-on grants SSH access to your Home Assistant config and add-ons.
   Only expose port 22222 on your LAN; do **not** port-forward it to the
   internet. Use a VPN (e.g. WireGuard) for remote access.
-- Want more tooling on the box (node, python, build tools)? Add packages to the
-  `apt-get install` line in the `Dockerfile` and rebuild the add-on.
+- Want more tooling on the box (node, python, build tools)? Add them to the
+  `packages` option (installed on start) or to the `apt-get install` line in the
+  `Dockerfile` (baked into the image) and rebuild the add-on.
 
 ## Support
 

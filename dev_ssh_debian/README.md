@@ -8,6 +8,6 @@ See [DOCS.md](./DOCS.md) for full documentation and rationale.
 ## Quick start
 
 1. Install from the repository store.
-2. Add your SSH public key under **Configuration → `authorized_keys`**.
+2. Add your SSH public key under **Configuration → `ssh` → `authorized_keys`**.
 3. Start the add-on.
 4. Connect: `ssh root@<ha-ip> -p 22222`, then open `/homeassistant`.

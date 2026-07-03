@@ -1,5 +1,5 @@
 name: Dev SSH (Debian)
-version: "1.0.0"
+version: "2.0.0"
 slug: dev_ssh_debian
 description: >-
   glibc-based SSH server for Cursor / VS Code Remote-SSH, with the Home
@@ -28,10 +28,32 @@ map:
   - type: addons
     read_only: false
 options:
-  authorized_keys: []
+  ssh:
+    username: root
+    password: ""
+    authorized_keys: []
+    sftp: false
+    compatibility_mode: false
+    allow_agent_forwarding: false
+    allow_remote_port_forwarding: false
+    allow_tcp_forwarding: false
+  packages: []
+  init_commands: []
 schema:
-  authorized_keys:
-    - str
+  ssh:
+    username: str
+    password: password?
+    authorized_keys:
+      - str?
+    sftp: bool
+    compatibility_mode: bool
+    allow_agent_forwarding: bool
+    allow_remote_port_forwarding: bool
+    allow_tcp_forwarding: bool
+  packages:
+    - str?
+  init_commands:
+    - str?
 # To serve prebuilt images from CI instead of building locally on each box,
 # publish images via the included GitHub Actions workflow and then add:
 #

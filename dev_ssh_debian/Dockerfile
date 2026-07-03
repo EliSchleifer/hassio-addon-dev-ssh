@@ -8,6 +8,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         openssh-server \
         jq \
+        sudo \
         ca-certificates \
         curl \
         wget \
