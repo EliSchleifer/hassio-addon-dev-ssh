@@ -19,7 +19,13 @@ panel_title: Package Watcher
 # discover camera.* entities you already have in Home Assistant.
 homeassistant_api: true
 map:
-  - addon_config:rw
+  - type: addon_config
+    read_only: false
+  # Read-only access to the HA config dir so the UI can reuse the UniFi
+  # Protect integration's stored credentials (.storage/core.config_entries)
+  # for recorded-clip pull — no need to re-enter NVR credentials.
+  - type: homeassistant_config
+    read_only: true
 options:
   config_path: /config/config.yaml
   fixtures_path: /config/fixtures
