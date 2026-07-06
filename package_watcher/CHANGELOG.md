@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1
+
+- Fix: the image now pins the app code to an exact commit instead of `@main`,
+  so a rebuild actually pulls the intended code. Previously Docker reused the
+  cached `pip install @main` layer on rebuild, shipping stale code (the camera
+  discovery / Protect auto-discovery from 0.2.0 never took effect).
+
 ## 0.2.0
 
 - Discover the cameras you already have in Home Assistant: the fixture UI's
