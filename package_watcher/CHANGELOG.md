@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+- Scrub-and-mark clip authoring: pick a camera, start time, and window, then
+  scrub a thumbnail timeline (cheap downscaled snapshots — no video download),
+  click frames to mark In/Out, zoom to refine, and pull only the selected
+  short range as the fixture clip.
+
 ## 0.2.1
 
 - Fix: the image now pins the app code to an exact commit instead of `@main`,
