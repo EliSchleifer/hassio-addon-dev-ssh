@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.6
+
+- SAM 2 crop refinement (on by default): candidate crops are fitted to the
+  segmented object boundary before the vision model captions them —
+  measurably cleaner captions on real footage. Weights (~39MB) download on
+  first use into /data; any failure falls back to the plain crop.
+
 ## 0.4.5
 
 - Camera watch zones travel with pulled clips into fixture cases — boxes
