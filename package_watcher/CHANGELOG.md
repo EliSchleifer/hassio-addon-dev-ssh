@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.2
+
+- Backtest cards show the before/after comparison pair (the baseline
+  snapshot each sample was diffed against), so noise candidates explain
+  themselves.
+- Per-camera watch zones: draw a rectangle over a live snapshot — or import
+  a smart/motion zone already configured on the camera in Protect — and
+  everything outside it is ignored by backtests AND the live watcher.
+  Stored in zones.yaml next to config.yaml.
+
 ## 0.4.1
 
 - Backtest results group all candidate boxes from one sample into a single
