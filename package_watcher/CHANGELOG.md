@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.1
+
+- Backtest results group all candidate boxes from one sample into a single
+  card (numbered boxes on one frame with per-box verdicts) instead of
+  repeating the same timestamp per box.
+- Backtest display failures now surface in the status line instead of
+  leaving a blank results area.
+- Password managers no longer try to autofill the date/time pickers.
+
 ## 0.4.0
 
 - **Person-gated detection** (`detector.mode: person_gated`): compares the
