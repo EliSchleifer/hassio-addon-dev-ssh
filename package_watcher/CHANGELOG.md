@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.3
+
+- Backtest engine reworked to a true fast/slow reference: the baseline
+  tracks lighting every sample, pending candidates keep their pre-arrival
+  pixels, and a candidate confirms only if it stays put AND its pixels are
+  still between samples — creeping shadows can no longer become hits.
+- Reference-ghost filter (regions where something left no longer read as
+  arrivals).
+- Verifier status is shown under the 2nd-stage selector, so whether
+  Florence is actually configured/loaded is visible at a glance.
+
 ## 0.4.2
 
 - Backtest cards show the before/after comparison pair (the baseline
