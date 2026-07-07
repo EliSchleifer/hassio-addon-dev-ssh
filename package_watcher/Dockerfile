@@ -15,7 +15,7 @@
 # need glibc; `init: false` in config.yaml means no s6 overlay is required.
 FROM python:3.12-slim
 
-ARG PW_REF=a63e8fc408be33f7f5d3f31d86c56938d70b010e
+ARG PW_REF=fd36510cfd8f3b1e6cce52f40ea76ce5dd9c5a3d
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ffmpeg libglib2.0-0 jq git \

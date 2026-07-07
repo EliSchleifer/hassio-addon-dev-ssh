@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.4
+
+- Native-resolution capture on detection/verification paths: backtest
+  snapshots come at the camera's full resolution (the CV diff still runs
+  downscaled — that part is cheap by design), so vision-model crops,
+  evidence, and before/after images keep every pixel. Zone drawing and
+  result cards are higher-res too; only interactive scrubbing stays small.
+- Case-list preview runs the full pipeline including the Florence verdict.
+
 ## 0.4.3
 
 - Backtest engine reworked to a true fast/slow reference: the baseline
