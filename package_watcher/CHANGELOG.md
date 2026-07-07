@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.4.0
+
+- **Person-gated detection** (`detector.mode: person_gated`): compares the
+  clean scene after a person's visit against the clean scene before it —
+  people can't false-positive by definition. Person presence comes from
+  Protect smart detections; fixture clips import their person windows
+  automatically when pulled.
+- **Second-stage vision verification**: Florence-2 runs locally on CPU and
+  captions each candidate crop — verdicts on every event (`verification:`),
+  in the wizard, and in backtests. Enable with `verifier: {backend: florence}`
+  in the watcher config; model (~0.5 GB) downloads on first use into /data.
+- **Backtest a day**: pick a camera, date, and interval (5–30 min) in the UI —
+  one snapshot per interval is compared with the previous person-free one and
+  candidate packages stream in with where-in-frame + the model's caption.
+  Also as a CLI: `package-watcher backtest`.
+- Wizard rework: modal flow (Source → Expectation → Verify & save), live
+  scrubber with ±1/5/30 s stepping, draw-the-expected-region on the clip,
+  watch clips inline, reopen/edit saved cases, mm:ss times everywhere.
+- Fixtures are real clips only (synthetic scenes removed); clips stay local.
+- Detector shape priors reject tall/upright person-shaped blobs.
+
 ## 0.3.0
 
 - Scrub-and-mark clip authoring: pick a camera, start time, and window, then
