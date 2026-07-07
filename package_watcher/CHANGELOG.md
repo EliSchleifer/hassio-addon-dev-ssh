@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.5
+
+- Camera watch zones travel with pulled clips into fixture cases — boxes
+  outside the zone are never graded or shown, in previews, verify, or tests.
+- Verifier accept vocabulary tuned on real footage (poly mailers caption as
+  "pillow"/"paper"): defaults gain mailer/bag; tune further per deployment
+  with `verifier.accept`.
+
 ## 0.4.4
 
 - Native-resolution capture on detection/verification paths: backtest
