@@ -15,14 +15,22 @@
 # need glibc; `init: false` in config.yaml means no s6 overlay is required.
 FROM python:3.12-slim
 
-ARG PW_REF=e008dc9c478cbf40c45ce7420c8c684ac9c346b5
+ARG PW_REF=588bb597394efce61fe1e574152f727773588c87
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ffmpeg libglib2.0-0 jq git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir \
-    "package-watcher[unifi,ui] @ git+https://github.com/EliSchleifer/hassio-package-watcher@${PW_REF}"
+# Torch AND torchvision from the CPU wheel index (the default PyPI wheels
+# target CUDA torch — mixing them breaks with "torchvision::nms does not
+# exist"), then the app with the Florence-2 verification extra.
+RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir \
+    "package-watcher[unifi,ui,verify] @ git+https://github.com/EliSchleifer/hassio-package-watcher@${PW_REF}"
+
+# Model weights download on first use; keep them in /data so they survive
+# restarts and add-on updates (cleared only on uninstall).
+ENV HF_HOME=/data/hf-cache
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
