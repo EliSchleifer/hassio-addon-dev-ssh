@@ -1,5 +1,5 @@
 name: Package Watcher
-version: "0.4.6"
+version: "0.5.0"
 slug: package_watcher
 description: >-
   CPU-only package detection for Unifi Protect cameras. Watches RTSP streams
