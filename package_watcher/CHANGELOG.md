@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+- Build training data from history: replay every recorded person visit for
+  a camera + day as a before/after card (candidates boxed and captioned),
+  label each with one click — labels land in fixtures/training/labels.jsonl
+  with full-resolution images kept locally.
+
 ## 0.4.6
 
 - SAM 2 crop refinement (on by default): candidate crops are fitted to the
